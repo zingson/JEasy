@@ -1,0 +1,52 @@
+group 'com.zingson.jeasy'
+version '1.0.0'
+
+apply plugin: 'idea'
+idea {
+    project {
+        languageLevel = '1.8'
+        vcs = 'Git'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+[compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+compileJava*.options*.compilerArgs=[/*"-Xlint:unchecked",*/ "-g:vars", "-g:lines", "-g:source"]
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
+}
+
+dependencies {
+    compile(
+            //slf4j-log4j2
+            'org.slf4j:slf4j-api:1.7.25',
+            'org.apache.logging.log4j:log4j-api:2.8.1',
+            'org.apache.logging.log4j:log4j-core:2.8.1',
+            'org.apache.logging.log4j:log4j-slf4j-impl:2.8.1',
+
+    )
+    //compile fileTree(dir: 'src/main/webapp/WEB-INF/lib', include: ['*.jar'])
+    testCompile(
+            'junit:junit:4.12',
+            'org.easymock:easymock:3.5.1',
+
+
+    )
+    providedCompile(
+            //'javax:javaee-api:7.0',
+
+            //tomcat-embed
+            'org.apache.tomcat.embed:tomcat-embed-core:8.5.27',
+            'org.apache.tomcat.embed:tomcat-embed-websocket:8.5.27',
+    )
+}
+
